@@ -190,9 +190,24 @@ public:
 
     }
 
-    //TODO : Clear the List
+    //DONE : Clear the List
+    void Clear()
+    {
+        while (head != nullptr)
+        {
+            Node<T>* nodeTobeDeleted = head;
+            head = head->getNext();
 
-    //TODO : Destructor needs the Clear()
+            nodeTobeDeleted->setNext(nullptr);
+            delete nodeTobeDeleted;
+        }
+    }
+
+    //DONE : Destructor needs the Clear()
+    ~LinkedList()
+    {
+        Clear();
+    }
 
     LinkedList(const LinkedList& OriginalList) //DONE : Copy Constructor for the Deep Copy
     {
@@ -233,13 +248,51 @@ public:
 
     //Recurcion Functions : 
 
-    //TODO : GetIndexOf()
+    //DONE : GetFreqof()
+    int GetFreqof_Recursive(const T& data , Node<T>* Ptr , int& Frequency) //Will equal head , also for frequency-> must be initialized with zero
+    {
+        if(Ptr == nullptr)
+        {
+            return Frequency;
+        }
+        if(Ptr->getData() == data)
+        {
+            Frequency++;
+        }
+        return GetFreqof_Recursive(data, Ptr->getNext(),Frequency);
+    }
 
-    //TODO  : CountFrequency()
+    //DONE : Clear()
+    void Clear_Recursively(Node<T>* Ptr)
+    {
+        if(Ptr == nullptr)
+        {
+            return;
+        }
+        else
+        {
+            Node<T>* nodeTobeDeleted = Ptr;
+            Ptr = Ptr->getNext();
+            nodeTobeDeleted->setNext(nullptr);
+            delete nodeTobeDeleted;
+            Clear_Recursively(Ptr);
+        }
+    }
 
-    //TODO : CountFrequency()_V2
+    //By ChatGPT: 
+    //template <typename T>
+    //void Clear_Recursively(Node<T>* Ptr)
+    //{
+    //    if (Ptr == nullptr) // Base case: Stop when reaching the end
+    //    {
+    //        return;
+    //    }
 
-    //TODO : GetFreqof()
+    //    Node<T>* nextNode = Ptr->getNext(); // Save next node before deletion
+    //    delete Ptr; // Delete current node
+    //    Clear_Recursively(nextNode); // Move to next node
+    //}
 
-    //TODO : Clear()
+
+
 };
