@@ -121,20 +121,52 @@ void BSTree::rec_destroy_tree(Node *& subRoot)
 //* return a pointer to the node that hold the maximum value in binary search tree of the passed subRoot.
 Node*  BSTree::rec_find_max(Node* subRoot)
 {
-	//TO DO
-	return nullptr; // should be changed
+	if(!subRoot)
+	{
+		return nullptr;
+	}
+
+	if(!subRoot->getright())
+	{
+		return subRoot;
+	}
+
+	return rec_find_max(subRoot->getright());
 }
 //* return a pointer to the node that hold the minimum value in binary search tree of the passed subRoot.
 Node*  BSTree::rec_find_min(Node* subRoot)
 {
-	//TO DO
-	return nullptr; // should be changed
+	if (!subRoot)
+	{
+		return nullptr;
+	}
+
+	if (!subRoot->getleft())
+	{
+		return subRoot;
+	}
+
+	return rec_find_min(subRoot->getleft());
 }
 //* return the depth of binary search tree of the passed subRoot.
 int BSTree::rec_max_depth(Node* subRoot)
 {
-	//TO DO
-	return 0; // should be changed
+	if(!subRoot)
+	{
+		return 0;
+	}
+
+	int leftDepth = rec_max_depth(subRoot->getleft());
+	int rightDepth = rec_max_depth(subRoot->getright());
+
+	if(leftDepth > rightDepth)
+	{
+		return leftDepth + 1;
+	}
+	else
+	{
+		return rightDepth + 1;
+	}
 }
 
 void BSTree::rec_printBT(const std::string& prefix, Node* node, bool isLeft)
@@ -204,16 +236,13 @@ void BSTree::printBT()
 // Functions to be implemented by student
 Node* BSTree::find_max() const // return a pointer to the node that hold the maximum value in binary search tree.
 {
-	//TO DO
-	return nullptr; // should be changed
+	rec_find_max(root);
 }
 Node* BSTree::find_min() const // return a pointer to the node that hold the minimum value in binary search tree.
 {
-	//TO DO
-	return nullptr; // should be changed
+	rec_find_min(root);
 }
 int BSTree::max_depth() const
 {
-	//TO DO
-	return 0; // should be changed
+	return rec_max_depth(root);
 }
